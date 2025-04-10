@@ -24,6 +24,8 @@ stelnet server enable
 ssh user admin123 authentication-type password
 ssh user admin123 service-type stelnet
 
+！ssh server-source XXX                  #有的版本需要指定源，只允许SSH用户通过指定的源接口登录服务器，通过其他接口登录的SSH用户都将被拒绝
+
 ! 配置 RSA 密钥
 ！public-key local create rsa          #通过命令 stelnet server enable启用了 SSH 服务后，如果设备检测到没有可用的密钥对，它会自动生成一个默认的 RSA 密钥对（通常为 2048 位）
 ! (在提示时输入密钥长度，建议至少 2048)
