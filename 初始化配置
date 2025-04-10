@@ -14,18 +14,18 @@ ip route-static 0.0.0.0 0.0.0.0 192.168.1.254
 
 ! 配置用户名和密码
 aaa
- local-user admin password cipher AdminPassword123
- local-user admin service-type ssh
- local-user admin privilege level 15
+ local-user admin123 password cipher Admin@Password123         #用户名最低6位
+ local-user admin123 service-type ssh
+ local-user admin123 level 3
 quit
 
 ! 配置 SSH
 stelnet server enable
-ssh user admin authentication-type password
-ssh user admin service-type stelnet
+ssh user admin123 authentication-type password
+ssh user admin123 service-type stelnet
 
 ! 配置 RSA 密钥
-public-key local create rsa
+！public-key local create rsa          #通过命令 stelnet server enable启用了 SSH 服务后，如果设备检测到没有可用的密钥对，它会自动生成一个默认的 RSA 密钥对（通常为 2048 位）
 ! (在提示时输入密钥长度，建议至少 2048)
 
 ! 禁用 Telnet 并启用密码加密
@@ -33,6 +33,9 @@ user-interface vty 0 4
  authentication-mode aaa
  protocol inbound ssh
 quit
-
+!提交配置
+commit
+！退出到用户视图
+quit
 ! 保存配置
 save
